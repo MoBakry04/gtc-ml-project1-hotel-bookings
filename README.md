@@ -11,14 +11,7 @@
 - [Quickstart (Colab / Local)](#quickstart-colab--local)
 - [Dependencies](#dependencies)
 - [What the preprocessing does (step-by-step)](#what-the-preprocessing-does-step-by-step)
-- [Important bugs & fixes you should know](#important-bugs--fixes-you-should-know)
-- [Recommended corrected flow (example)](#recommended-corrected-flow-example)
 - [Outputs](#outputs)
-- [Next steps & suggestions for modeling](#next-steps--suggestions-for-modeling)
-- [Reproducibility & artifacts to save](#reproducibility--artifacts-to-save)
-- [License](#license)
-- [Author / Contact](#author--contact)
-
 ---
 
 ## Overview
@@ -94,7 +87,7 @@ Pin versions if you need exact reproducibility.
 5. **Feature engineering**:
    - `total_guests = adults + children + babies`
    - `total_nights = stays_in_weekend_nights + stays_in_week_nights`
-   - `is_family` flag (see caveat below)
+   - `is_family (df['children'] + df['babies']) > 0`
 6. **Outlier detection & handling** for `adr` and `lead_time` (IQR & percentile clipping attempted).
 7. **Type casting** for object/string and numeric columns.
 8. **Categorical encoding**: one-hot encode many categorical fields (e.g. `meal`, `market_segment`, `reserved_room_type`, etc.)
