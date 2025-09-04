@@ -30,7 +30,7 @@ This project contains a preprocessing pipeline that cleans, imputes, engineers f
 
 ### Colab
 
-1. Upload `hotel_bookings.csv` to your Colab session or mount Google Drive.
+1. Upload `hotel_bookings.csv` to your Colab session.
 2. Install dependencies (if missing):
 
 ```bash
@@ -56,9 +56,6 @@ source .venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-
-3. Place `hotel_bookings.csv` in the repo root and run the preprocessing script or notebook.
-
 ---
 
 ## Dependencies
@@ -73,9 +70,6 @@ matplotlib
 seaborn
 missingno
 ```
-
-Pin versions if you need exact reproducibility.
-
 ---
 
 ## What the preprocessing does (step-by-step)
@@ -90,13 +84,8 @@ Pin versions if you need exact reproducibility.
    - `is_family (df['children'] + df['babies']) > 0`
 6. **Outlier detection & handling** for `adr` and `lead_time` (IQR & percentile clipping attempted).
 7. **Type casting** for object/string and numeric columns.
-8. **Categorical encoding**: one-hot encode many categorical fields (e.g. `meal`, `market_segment`, `reserved_room_type`, etc.)
+8. **Categorical encoding**: one-hot encode `meal`, `market_segment`and `assigned_room_type` columns.
 9. **Low-frequency consolidation** for `country` (countries with low counts are grouped into `Other`), and `country_freq` is computed.
-10. **Drop leakage-prone / unwanted cols** (`country`, `reservation_status`, `reservation_status_date`), save `updated_dataset.csv`.
-11. **Train/test split** with `train_test_split(..., test_size=0.2, random_state=42)`.
-
+10. **Dropped columns**: dropped unimportant features with correlation less than 0.1 (e.g `country`, `adult`, `company`, etc.).
+11. **Train/test split** with `train_test_split(..., test_size=0.2, random_state=42)` and standardized them.
 ---
-
-## Outputs
-
-- `updated_dataset.csv` — cleaned dataset (as produced by the original notebook).
